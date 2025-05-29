@@ -1,0 +1,602 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --background-color: #f5f6fa;
+    --card-color: #ffffff;
+    --text-color: #333;
+    --text-light: #777;
+    --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Шапка */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), #1a2533);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+    background-size: cover;
+}
+
+.header-title {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+}
+
+/* Поиск */
+.search-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 1.1rem 1.1rem 1.1rem 3rem;
+    font-size: 1.1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    outline: none;
+    transition: var(--transition);
+    background-color: var(--card-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#searchInput:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+#searchInput::placeholder {
+    color: #aaa;
+}
+
+.search-wrapper::before {
+    content: "\f002";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 1.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    font-size: 1.1rem;
+}
+
+.clear-button {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #bbb;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-button.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.clear-button:hover {
+    color: var(--accent-color);
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* Контейнер стран */
+.countries-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+}
+
+/* Карточка страны */
+.country-card {
+    background: var(--card-color);
+    border-radius: 16px;
+    padding: 1.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.country-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.country-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+}
+
+.country-card:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.flag-wrapper {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8f9fa;
+    position: relative;
+}
+
+.flag-image {
+    max-width: 100%;
+    max-height: 140px;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.country-card:hover .flag-image {
+    transform: scale(1.05);
+}
+
+.country-name {
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.country-capital {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* Скелетоны */
+.skeleton-card {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    border-radius: 16px;
+    height: 300px;
+    background-size: 400% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* Детали страны */
+.country-detail {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--card-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.country-detail.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.detail-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.detail-header::after {
+    content: "";
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.detail-title {
+    margin-bottom: 1.2rem;
+}
+
+.detail-title h2 {
+    font-size: 2.6rem;
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+    font-weight: 800;
+}
+
+.detail-title p {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Информационные карточки */
+.info-card {
+    background: var(--card-color);
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    border-left: 4px solid var(--secondary-color);
+}
+
+.info-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+}
+
+.info-title {
+    color: var(--primary-color);
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #eee;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.info-title i {
+    margin-right: 10px;
+    color: var(--secondary-color);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.info-label i {
+    margin-right: 8px;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+.info-value {
+    color: var(--text-color);
+    text-align: right;
+    font-weight: 500;
+}
+
+/* Символика страны */
+.symbols-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.symbols-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+    margin-top: 1rem;
+}
+
+.symbol-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+    padding: 1rem;
+    border-radius: 12px;
+    background: #f9fafb;
+}
+
+.symbol-item:hover {
+    background: #f0f7ff;
+    transform: translateY(-3px);
+}
+
+.symbol-image {
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    background: white;
+    padding: 10px;
+    transition: var(--transition);
+}
+
+.symbol-item:hover .symbol-image {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.symbol-label {
+    margin-top: 1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.05rem;
+}
+
+/* Описание страны */
+.description-card {
+    margin-bottom: 2rem;
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 2rem;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.description-text {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: var(--text-color);
+}
+
+.description-text p {
+    margin-bottom: 1.6rem;
+}
+
+.description-text b {
+    color: var(--primary-color);
+    font-weight: 700;
+    display: block;
+    margin-top: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    position: relative;
+    padding-left: 25px;
+}
+
+.description-text b::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 3px;
+    background: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.detail-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.back-button {
+    background: linear-gradient(to right, var(--secondary-color), #2980b9);
+    color: white;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+}
+
+.back-button i {
+    margin-right: 8px;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.detail-grid .info-card {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.detail-grid .info-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.detail-grid .info-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.description-card {
+    animation: fadeIn 0.6s ease 0.3s forwards;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-title {
+        font-size: 2.3rem;
+    }
+    
+    .countries-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 2rem 1.5rem;
+    }
+    
+    .header-title {
+        font-size: 2rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1rem;
+    }
+    
+    .country-detail {
+        padding: 1.8rem;
+    }
+}
+
+@media (max-width: 580px) {
+    .countries-container {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    
+    .symbols-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    
+    .detail-title h2 {
+        font-size: 2rem;
+    }
+    
+    .info-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-container {
+        padding: 0 1rem;
+    }
+    
+    #searchInput {
+        padding-left: 2.8rem;
+        font-size: 1rem;
+    }
+    
+    .search-wrapper::before {
+        left: 1.1rem;
+    }
+    
+    .clear-button {
+        right: 1rem;
+    }
+}
+
+/* Обработка ошибок изображений */
+img.error {
+    position: relative;
+}
+
+img.error::after {
+    content: "Изображение не загружено";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #999;
+    text-align: center;
+    padding: 10px;
+}
